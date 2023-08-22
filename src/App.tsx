@@ -9,8 +9,6 @@ import {
   Card,
   Chip,
   CardContent,
-  CardHeader,
-  Divider,
 } from "@mui/material";
 import React, { useState } from "react";
 import { LOTTERY_NUMBERS } from "./config/const";
@@ -34,9 +32,10 @@ function App() {
     ).sort(() => Math.random() - 0.5);
     const result = [];
 
-    for (let i = 0; i < 5; i += 1) {
+    for (let i = 0; i < 6; i += 1) {
       result.push(filterdNumbers[i]);
     }
+    result.sort((a, b) => a - b);
     return result;
   };
 
@@ -80,11 +79,13 @@ function App() {
           </Typography>
           {results.map((result) => (
             <Card>
-              <CardHeader title="결과지" />
-              <Divider />
               <CardContent>
-                {result.map((num) => (
-                  <Chip label={num} color="primary" sx={{ mr: 1 }} />
+                {result.map((num, index) => (
+                  <Chip
+                    label={num}
+                    color={(index + 1) % 2 !== 0 ? "primary" : "secondary"}
+                    sx={{ mr: 1 }}
+                  />
                 ))}
               </CardContent>
             </Card>
